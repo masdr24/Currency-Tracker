@@ -6,14 +6,14 @@ class API_Clinet:
     def __init__(self):
 
         self.Api_addresses = {"iran_market" : "https://raw.githubusercontent.com/iran-market/iran-market.github.io/main/data/popular.json",
-                              "persisan_toolbox" : "https://persiantoolbox.ir/api/market"}
-        self.Api_services = ["iran_market", "persisan_toolbox"]
+                              "nerkhsanj" : "https://nerkh.jahankhahan.shop/data/live.json"}
+        self.Api_services = ["iran_market", "nerkhsanj"]
         self.current_data = None
         self.used_api = None
         self.final_data = None
 
 
-    def fetch_data(self, api = "iran_market"):
+    def fetch_data(self, api = "nerkhsanj"):
 
         used_api = api
         url = self.Api_addresses[api]
@@ -91,7 +91,22 @@ class API_Clinet:
                          "Change Price" : gold_data["change"]}
 
             final_answer["Dollar"] = dollar_data
-            final_answer["Gold"] = gold_data            
+            final_answer["Gold"] = gold_data     
+
+        elif self.used_api == "nerkhsanj":
+
+            data_dict = self.current_data["rates"]
+
+            dollar_data = {"Currency Name" : "Dollar",
+                           "Price" : data_dict["dollar"],
+                           "Change Price" : None}
+
+            gold_data = {"Currency Name" : "Gold_18k",
+                           "Price" : data_dict["gold"],
+                           "Change Price" : None}
+
+            final_answer["Dollar"] = dollar_data
+            final_answer["Gold"] = gold_data
 
 
         self.final_data = final_answer
