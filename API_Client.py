@@ -80,33 +80,24 @@ class API_Clinet:
 
             data_dict = self.current_data["data"]
 
-            dollar_data = data_dict[0]
-            dollar_data = {"Currency Name" : dollar_data["symbol"],
-                           "Price" : dollar_data["price"],
-                           "Change price" : dollar_data["change"]}
+            currencies = ["Dollar", "Gold"]
+            current_prices = [data_dict[0]["price"], data_dict[3]["price"]]
+            change = [data_dict[0]["change"], data_dict[3]["change"]]
 
-            gold_data = data_dict[3]
-            gold_data = {"Currency Name" : gold_data["symbol"],
-                         "Price" : gold_data["price"],
-                         "Change Price" : gold_data["change"]}
-
-            final_answer["Dollar"] = dollar_data
-            final_answer["Gold"] = gold_data     
+            final_answer = {"currencies" : currencies, "prices" : current_prices, "change" : change}
 
         elif self.used_api == "nerkhsanj":
 
             data_dict = self.current_data["rates"]
 
-            dollar_data = {"Currency Name" : "Dollar",
-                           "Price" : data_dict["dollar"],
-                           "Change Price" : None}
+            currenies = ["Dollar", "Gold"]
+            current_prices = [data_dict["dollar"], data_dict["gold"]]
 
-            gold_data = {"Currency Name" : "Gold_18k",
-                           "Price" : data_dict["gold"],
-                           "Change Price" : None}
+            data_dict = self.current_data["change"]
 
-            final_answer["Dollar"] = dollar_data
-            final_answer["Gold"] = gold_data
+            change = [data_dict["dollar"], data_dict["gold"]]
+
+            final_answer = {"currencies" : currenies, "prices" : current_prices, "change" : change}
 
 
         self.final_data = final_answer
