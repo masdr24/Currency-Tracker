@@ -1,6 +1,7 @@
 import API_Client
 import Database_Manager
 
+
 class App:
 
     def __init__(self):
@@ -14,7 +15,12 @@ class App:
         data = self.api_client.fetch_data()
         data = self.api_client.analys_data()
         print(data)
+        print()
         self.DB.save_data(data)
+        new, all = self.DB.get_data()
+        print(new)
+        print()
+        print(all)
 
 
 if __name__ == "__main__":
